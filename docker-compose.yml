@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  mysql-master:
+    image: mysql:8.0
+    container_name: mysql-master
+    environment:
+      MYSQL_ROOT_PASSWORD: masterpass
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: repl_user
+      MYSQL_PASSWORD: repl_password
+      MYSQL_ROOT_HOST: "%"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./master/conf:/etc/mysql/conf.d
+      - ./master/data:/var/lib/mysql
+    networks:
+      - mysql-network
+    command: --default-authentication-plugin=mysql_native_password --server-id=1 --log-bin=mysql-bin --binlog-format=ROW
+
+  mysql-slave:
+    image: mysql:8.0
+    container_name: mysql-slave
+    environment:
+      MYSQL_ROOT_PASSWORD: slavepass
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: repl_user
+      MYSQL_PASSWORD: repl_password
+      MYSQL_ROOT_HOST: "%"
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./slave/conf:/etc/mysql/conf.d
+      - ./slave/data:/var/lib/mysql
+    networks:
+      - mysql-network
+    depends_on:
+      - mysql-master
+    command: --default-authentication-plugin=mysql_native_password --server-id=2 --relay-log=mysql-relay-bin
+
+networks:
+  mysql-network:
+    driver: bridge
