@@ -69,7 +69,7 @@ Sur Windows, suivez ces étapes :
    ```ini
    [mysqld]
    server-id=2
-   relay_log=mysql-relay-bin
+   relay_log=mysql-bin
    ```
 3. Redémarrer MySQL :
    ```sh
