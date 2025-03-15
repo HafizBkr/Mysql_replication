@@ -148,5 +148,17 @@ Sur Windows, suivez ces étapes :
    USE test_replication;
    SELECT * FROM users;
    ```
-   Si la ligne `Alice` apparaît, la réplication fonctionne ! 
+   Si la ligne `Alice` apparaît, la réplication fonctionne !
+   ## Réplication Semi-Synchrone (Optionnelle)
+
+    ````
+     INSTALL PLUGIN rpl_semi_sync_master SONAME 'semisync_master.so';
+     INSTALL PLUGIN rpl_semi_sync_slave SONAME 'semisync_slave.so';
+    ````
+
+    ## La réplication synchrone n'est pas supportée nativement par MySQL
+     ````
+       Méthode 1 : Réplication Synchrone avec Galera Cluste
+     ````
+
 
