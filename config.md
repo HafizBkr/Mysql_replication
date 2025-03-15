@@ -108,6 +108,8 @@ Sur Windows, suivez ces étapes :
    relay_log=mysql-relay-bin
    gtid_mode=ON
    enforce-gtid-consistency=ON
+   read_only=ON
+   super_read_only=ON
 
 
    ```
