@@ -1,5 +1,5 @@
 
-# Tutoriel Complet : Configuration de la Réplication MySQL sur Windows
+# Tutoriel Complet : Configuration de la Réplication MySQL sur Windows GROUPE6
 
 ## 1. Configuration des Adresses IP
 ### 1.1 Définir une IP Statique sur le Master et le Slave
