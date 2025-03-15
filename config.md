@@ -162,5 +162,9 @@ Sur Windows, suivez ces étapes :
      ````
        Méthode 1 : Réplication Synchrone avec Galera Cluste
      ````
-
+comment ça fonctionne techniquement ?
+1️ Lorsqu'un Master tombe, MySQL détecte la panne via un Heartbeat
+2️ Un outil de gestion de Failover (comme Orchestrator ou MHA) sélectionne automatiquement le Slave le plus à jour
+3️ Le Slave élu devient le nouveau Master
+4️ Les autres Slaves se connectent au nouveau Master pour continuer la réplication
 
