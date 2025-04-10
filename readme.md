@@ -1,4 +1,4 @@
-# Configuration MySQL Master-Slave avec Docker Compose
+# Configuration MySQL Master-Slave avec Docker Compose:
 
 Ce document décrit les étapes pour mettre en place une réplication MySQL (master-slave) en utilisant Docker Compose et MySQL 8.0.
 
