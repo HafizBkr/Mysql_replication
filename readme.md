@@ -57,6 +57,7 @@ services:
     depends_on:
       - mysql-master
     command: --default-authentication-plugin=mysql_native_password --server-id=2 --relay-log=mysql-relay-bin
+```
 
 networks:
   mysql-network:
@@ -83,16 +84,15 @@ relay-log=mysql-relay-bin
 
 docker compose up -d
 
-
-##connexion au master 
+## connexion au master 
 docker exec -it mysql-master mysql -uroot -pmasterpass
 
-##creation du user de replication 
+## creation du user de replication 
 CREATE USER 'rep'@'%' IDENTIFIED WITH mysql_native_password BY 'root';
 GRANT REPLICATION SLAVE ON *.* TO 'rep'@'%';
 FLUSH PRIVILEGES;
 
-##verification du statut du master 
+## verification du statut du master 
 SHOW MASTER STATUS;
 
 ###exemple de sortie 
@@ -103,47 +103,45 @@ SHOW MASTER STATUS;
 | mysql-bin.000003 |      825 |              |                  |                   |
 +------------------+----------+--------------+------------------+-------------------+
 
-##connexion sur le slave 
+## connexion sur le slave 
 
 docker exec -it mysql-slave mysql -uroot -pslavepass
 
-##configuration du slave 
+## configuration du slave 
 
-STOP SLAVE;
+     ~STOP SLAVE;
 
-CHANGE MASTER TO 
-  MASTER_HOST='mysql-master', 
-  MASTER_USER='rep', 
-  MASTER_PASSWORD='root', 
-  MASTER_LOG_FILE='mysql-bin.000003', 
-  MASTER_LOG_POS=825;
+    CHANGE MASTER TO 
+      MASTER_HOST='mysql-master', 
+      MASTER_USER='rep', 
+      MASTER_PASSWORD='root', 
+      MASTER_LOG_FILE='mysql-bin.000003', 
+      MASTER_LOG_POS=825;
 
-START SLAVE;
-
-
-##verification du staut du salve 
-SHOW SLAVE STATUS\G;
+    ~ START SLAVE;
 
 
+## verification du staut du salve 
+    SHOW SLAVE STATUS\G;
 
-##test sur le master 
+## test sur le master 
 
-USE test_db;
-CREATE TABLE replication_test (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  message VARCHAR(255)
-);
-INSERT INTO replication_test (message) VALUES ('Hello from Master!');
-
-
-##verification de replication sur le slave
-
-USE test_db;
-SELECT * FROM replication_test;
+    USE test_db;
+    CREATE TABLE replication_test (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      message VARCHAR(255)
+    );
+    INSERT INTO replication_test (message) VALUES ('Hello from Master!');
 
 
-##POUR VOIR LE nom de l'instance sur la quelsje suis actuellemnt connecter
-SELECT @@hostname;
+## verification de replication sur le slave
+
+    USE test_db;
+    SELECT * FROM replication_test;
+
+
+## POUR VOIR LE nom de l'instance sur la quelsje suis actuellemnt connecter
+    SELECT @@hostname;
 +--------------+
 | @@hostname   |
 +--------------+
