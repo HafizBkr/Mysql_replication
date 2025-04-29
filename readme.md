@@ -10,7 +10,6 @@ Ce document décrit les étapes pour mettre en place une réplication MySQL (mas
 - Structure de répertoires recommandée :
 
 
-
 ---
 
 ## Fichier `docker-compose.yml`
@@ -135,7 +134,6 @@ CREATE TABLE replication_test (
   message VARCHAR(255)
 );
 INSERT INTO replication_test (message) VALUES ('Hello from Master!');
-
 
 
 ##verification de replication sur le slave
