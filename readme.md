@@ -68,24 +68,25 @@ networks:
 
 # Pour le Master (./master/conf/my.cnf)
 
-[mysqld]
-server-id=1
-log-bin=mysql-bin
-binlog-format=ROW
+    [mysqld]
+    server-id=1
+    log-bin=mysql-bin
+    binlog-format=ROW
 
 
 ##Pour le Slave (./slave/conf/my.cnf)
-[mysqld]
-server-id=2
-relay-log=mysql-relay-bin
+
+      [mysqld]
+      server-id=2
+      relay-log=mysql-relay-bin
 
 ###Démarrage des Conteneurs
 
 
-docker compose up -d
+    docker compose up -d
 
 ## connexion au master 
-docker exec -it mysql-master mysql -uroot -pmasterpass
+    docker exec -it mysql-master mysql -uroot -pmasterpass
 
 ## creation du user de replication 
 CREATE USER 'rep'@'%' IDENTIFIED WITH mysql_native_password BY 'root';
@@ -93,7 +94,7 @@ GRANT REPLICATION SLAVE ON *.* TO 'rep'@'%';
 FLUSH PRIVILEGES;
 
 ## verification du statut du master 
-SHOW MASTER STATUS;
+    SHOW MASTER STATUS;
 
 ###exemple de sortie 
 
@@ -105,7 +106,7 @@ SHOW MASTER STATUS;
 
 ## connexion sur le slave 
 
-docker exec -it mysql-slave mysql -uroot -pslavepass
+    docker exec -it mysql-slave mysql -uroot -pslavepass
 
 ## configuration du slave 
 
@@ -148,5 +149,8 @@ docker exec -it mysql-slave mysql -uroot -pslavepass
 | 4604bb7d4bd1 |
 +--------------+
 
-requette pour voir le nom du conteneur 
-docker ps --filter "id=4604bb7d4bd1" --format "table {{.ID}}\t{{.Names}}"
+requette pour voir le nom du conteneur:
+      
+        docker ps --filter "id=4604bb7d4bd1" --format "table {{.ID}}\t{{.Names}}"
+
+            
