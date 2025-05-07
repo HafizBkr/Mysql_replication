@@ -108,5 +108,6 @@ Sur Windows, suivez ces étapes :
    USE test_replication;
    SELECT * FROM users;
    ```
-   Si la ligne `Alice` apparaît, la réplication fonctionne ! 
+   Si la ligne `Alice` apparaît, la réplication fonctionne !!
+   
 
